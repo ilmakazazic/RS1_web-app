@@ -1,0 +1,17 @@
+@model TrenerLicencaVM
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+<form asp-action="DodajLicencu" enctype="multipart/form-data" class="form-group">
+
+    <div class="form-group">
+        <label>Licenca: </label>
+        <input asp-for="Naziv" class="form-control" />
+        <span asp-validation-for="Naziv" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Snimi</button>
+</form>

@@ -1,0 +1,20 @@
+﻿@using RS1_WebApp.Areas.Clanovi.ViewModels
+@model RezervacijaVM
+@{
+    ViewData["Title"] = "RezervisiTrening";
+}
+
+<h1>RezervisiTrening</h1>
+
+<form asp-controller="Profil" asp-action="RezervisiSnimi" method="post">
+    <div class="form-group">
+        <label>Teretana: @Model.Teretana</label>
+    </div>
+    <div class="form-group">
+        <label>Odaberi trening: </label>
+        <select asp-for="TreningID" asp-items="@Model.treninzi" class="form-control"></select>
+    </div>
+    <input asp-for="ClanID" type="hidden" />
+    <br />
+    <input type="submit" class="btn btn-success" value="Rezervisi"/>
+</form>

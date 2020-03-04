@@ -1,0 +1,40 @@
+
+@model EmailVM
+<h3>Pošalji E-mail korisniku</h3>
+
+<div class="col-md-12">
+    <form asp-action="SendEmail" method="post">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="Ime">Ime:</label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-muted"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="Email">Email:</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-muted"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="Naslov">Naslov:</label>
+                <input asp-for="Naslov" class="form-control" />
+                <span asp-validation-for="Naslov" class="text-muted"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label asp-for="Poruka">Message:</label>
+                <textarea rows="8" cols="20" asp-for="Poruka" class="form-control"></textarea>
+                <span asp-validation-for="Poruka" class="text-muted"></span>
+            </div>
+        </div>
+        <div>
+            <input type="hidden" asp-for="TeretanaID" />
+            <button type="submit" class="btn btn-success">Send</button>
+        </div>
+    </form>
+</div>

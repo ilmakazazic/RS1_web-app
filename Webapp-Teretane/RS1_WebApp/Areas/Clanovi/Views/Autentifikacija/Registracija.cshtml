@@ -1,0 +1,73 @@
+﻿@using RS1_WebApp.Areas.Clanovi.ViewModels
+@model RegistracijaVM
+@{
+    ViewData["Title"] = "Registracija";
+   
+}
+
+<h1>Registracija</h1>
+
+
+
+<div class="col-md-4 col-md-offset-4">
+
+
+    <form asp-controller="Autentifikacija" asp-action="RegistrujSnimi">
+
+        <div class="form-group">
+            <label>Ime: </label>
+            <div>
+                @*<input asp-for="Ime" class="form-control" />*@
+                @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", @placeholder = "Ime" })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Prezime: </label>
+            <div>
+                <input asp-for="Prezime" class="form-control" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Email: </label>
+            <div>
+                <input asp-for="Email" class="form-control" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Adresa: </label>
+            <div>
+                <input asp-for="Adresa" class="form-control" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Korisnicko ime: </label>
+            <div>
+                <input asp-for="KorisnickoIme" class="form-control" />
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Lozinka: </label>
+            <div>
+                <input asp-for="Lozinka" class="form-control" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Tip naloga: </label>
+            <div>
+                <select asp-for="TipID" asp-items="@Model.tip" class="form-control"></select>
+
+            </div>
+        </div>
+        <input type="submit" value="Registruj se" class="btn btn-success form-control" />
+    </form>
+
+
+</div>

@@ -1,0 +1,54 @@
+﻿@model TreningAjaxDodajVM
+
+<br />
+<form asp-action="Uredi" class="form-group">
+    <div class="form-group">
+        <label>Teretana: </label>
+        <input asp-for="Teretana" class="form-control" readonly />
+
+    </div>
+
+    <div class="form-group">
+        <label>Radno vrijeme: </label>
+        <input asp-for="RadnoVrijeme" class="form-control" readonly />
+
+    </div>
+
+
+    <div class="form-group">
+        <label>Datum</label>
+        <input asp-for="Datum" class="form-control" readonly />
+
+    </div>
+
+
+    <div class="form-group">
+        <label>Trener: </label>
+        <select asp-for="TrenerId" asp-items="@Model.Trener" class="form-control"></select>
+
+    </div>
+
+    <div class="form-group">
+        <label>Broj mogucih rezervacija: </label>
+        <input asp-for="BrojRezrevacija" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Početak treninga:</label>
+        <input asp-for="Pocetak" type="time" placeholder="Upišite početak" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Kraj treninga: </label>
+        <input asp-for="Kraj" type="time" placeholder="Upišite kraj" class="form-control" />
+
+    </div>
+
+    <input type="hidden" asp-for="TeretanaId" />
+    <input type="hidden" asp-for="TreningId" />
+
+
+    <button type="submit" class="btn btn-success">Snimi</button>
+</form>

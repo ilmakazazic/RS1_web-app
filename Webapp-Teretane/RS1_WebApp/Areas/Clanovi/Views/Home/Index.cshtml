@@ -1,0 +1,20 @@
+﻿
+@*@{
+        ViewData["Title"] = "Home Page";
+        string poruka = (string)TempData["poruka-key"];
+    }*@
+
+
+        <div class="container body-content">
+            @*<h2>@poruka</h2>*@
+            <div class="btn btn-primary btn-lg btn-block" role="alert">
+                <a class="nav-link" asp-controller="Autentifikacija" asp-action="Registracija">Registracija</a>
+                @*<a class="nav-link" href="/Clanovi/Autentifikacija/Registracija">Registracija</a>*@
+
+            </div>
+            <div class="btn btn-primary btn-lg btn-block" role="alert">
+                <a class="nav-link" asp-controller="Autentifikacija" asp-action="Logout">Login</a>
+            </div>
+        </div>
+
+

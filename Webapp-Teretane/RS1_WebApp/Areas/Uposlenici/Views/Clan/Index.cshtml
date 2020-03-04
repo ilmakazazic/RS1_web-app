@@ -1,0 +1,86 @@
+﻿@model ClanTeretanaVM
+
+@{
+    ViewData["Title"] = "Prikaz Clanova";
+    string poruka = (string)TempData["Poruka-email"];
+}
+<h1>Prikaz članova</h1>
+<br />
+@if (poruka != null)
+{
+    <div class="alert alert-dismissible alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @poruka
+    </div>
+}
+<br />
+<input type="text" id="myInput" class="form-control float-left" style="width: 20% " onkeyup="myFunction()" placeholder="Pretrazi članove...">
+<br />
+<p class="float-right">Članovi koji trebaju uplatiti članarinu označeni su crvenom bojom</p>
+<br />
+
+<table class="table text-center" id="myTable">
+    <thead>
+        <tr>
+            <th>Clan</th>
+            <th>Korisnicko ime</th>
+            <th>Email</th>
+            <th>Datum zadnje uplate</th>
+            <th>Posalji mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.clanovi)
+        {
+            if (x.PotrebnoUplatit)
+            {
+                <tr class="table-danger">
+                    <td>@x.ImePrezime</td>
+                    <td>@x.KorisnickoIme</td>
+                    <td>@x.Email</td>
+                    <td>@x.DatumZadnjeUplate</td>
+                    <td><a asp-action="SendEmail" asp-controller="Email" asp-route-ClanID="@x.clanId" asp-route-TeretanaID="@Model.TeretanaID" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="btn btn-sm btn-outline-primary">Potrebno uplatiti</a></td>
+                </tr>
+
+            }
+            else
+            {
+                <tr>
+                    <td>@x.ImePrezime</td>
+                    <td>@x.KorisnickoIme</td>
+                    <td>@x.Email</td>
+                    <td>@x.DatumZadnjeUplate</td>
+                    <td></td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+<br />
+<div id="ajaxDiv">
+
+</div>
+<br />
+<script>
+    function myFunction() {
+
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,333 @@
+﻿@page
+
+@*@using RS1_WebApp.ViewModels
+    @{
+        ViewData["Title"] = "Home Page";
+    }*@
+<style>
+    .toast-body {
+        background-color: #aad1ee;
+        color: #272B30;
+    }
+
+    #proba {
+        width: 100%;
+        display: inline-flex;
+        padding-left: 5px;
+    }
+
+    #container {
+        padding: 57px 69px 50px 69px;
+        padding-left: 10px;
+        padding-top: 10px;
+        overflow: hidden;
+        width: 100%;
+        display: inline-block;
+    }
+
+    .toast {
+        position: absolute;
+        z-index: 9;
+        /*padding: 10px 10px 10px 10px;*/
+        background-color: #aad1ee;
+        border: 1px solid #d3d3d3;
+        text-align: center;
+        /*margin-left:30px;
+        margin-right:30px;*/
+    }
+
+    .toast-header {
+        padding: 10px;
+        cursor: move;
+        z-index: 10;
+        background-color: #469ADA;
+        color: #fff;
+    }
+
+
+    .modal {
+        display: none;
+        /*position: fixed;*/
+        z-index: 1; 
+        /*left: 0;
+        top: 0;*/
+        width: 60%; 
+        height: 50%; 
+        overflow: auto; 
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.4); 
+    }
+
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; 
+        padding: 20px;
+        border: 1px solid #888;
+        width: 100%; 
+    }
+
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #469ADA;
+        color: white;
+    }
+
+
+    .modal-body {
+        padding: 2px 16px;
+        width:100%;
+    }
+
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #469ADA;
+        color: white;
+    }
+
+
+    .modal-content {
+        position: center;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+    }
+    .btn{
+          color: #b8c0c0;
+    background-color: #3c4146;
+    border-color: white;
+    }
+</style>
+<div class="container body-content">
+    <h1 class="display-4">ONLINE GYM</h1>
+    <div class="form-group">
+        <img src="~/Assets/Images/Home1.gif" width="270" height="250" />
+        <img src="~/Assets/Images/Home2.gif" width="265" height="250" />
+        <img src="~/Assets/Images/Home3.gif" width="265" height="250" />
+        <img src="~/Assets/Images/Home4.gif" width="265" height="250" />
+    </div>
+
+    <br />
+
+    <button id="myBtn" class="btn">Otvori chat</button>
+
+
+    <div id="myModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <span class="close">&times;</span>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="container">
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul id="messagesList"></ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-2">Korisničko ime: </div>
+                        <div class="col-4"><input type="text" id="userInput" /></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Poruka: </div>
+                        <div class="col-4"><input type="text" id="messageInput" /></div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="button" id="sendButton" value="Pošalji" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr />
+                    </div>
+                </div>
+                @*<div class="row">
+                    <div class="col-6">
+                        <ul id="messagesList"></ul>
+                    </div>
+                </div>*@
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+
+
+
+
+
+
+
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Clanovi" asp-controller="Teretane" asp-action="PrikaziTeretane">Pretraga teretana</a>
+    </div>
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Clanovi" asp-controller="Profil" asp-action="Prikaz">Moj profil</a>
+    </div>
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Clanovi" asp-controller="Obavijesti" asp-action="PrikaziObavijesti">Pregled obavijesti</a>
+    </div>
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Clanovi" asp-controller="Clanarina" asp-action="Index">Plati članarinu</a>
+    </div>
+
+@*</div>*@
+<br />
+<br />
+<h3>Novosti: </h3>
+<div id="proba">
+    <div class="container" id="container">
+        <div class="toast" id="toast" data-autohide="false">
+            <div class="toast-header">
+                <strong class="mr-auto text-primary">ALL IN FITNESS</strong>
+                <small class="text-muted">5 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+            </div>
+            <div class="toast-body">
+                Našem timu se pridružio novi personalni trener. Sa ovim  trenerom klijent dobija apsolutnu pažnju i nadzor. Otkrijte o kome je riječ...
+            </div>
+        </div>
+    </div>
+    <div class="container" id="container">
+
+
+        <div class="toast" id="toast" data-autohide="false">
+            <div class="toast-header">
+                <strong class="mr-auto text-primary">LM FITNESS</strong>
+                <small class="text-muted">20 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+            </div>
+            <div class="toast-body">
+                Kontinuirano osmišljavamo nove načine vježbanja kako bi ga učinili što ugodnijim i djelotvornijim,  te na taj način klijentima osigurali tražene rezultate. Pogledajte koje su top tri vježbe namijenjene svim uzrastima...
+            </div>
+        </div>
+    </div>
+    <div class="container" id="container">
+        <div class="toast" id="toast" data-autohide="false">
+            <div class="toast-header">
+                <strong class="mr-auto text-primary">FITNESS UNIVERSE</strong>
+                <small class="text-muted">40 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+            </div>
+            <div class="toast-body">
+                BOOT CAMP na Betaniji 3 puta sedmično. (Ponedeljkom, srijedom i petkom u 19:00) PRIHVATI IZAZOV, POMJERI SVOJE GRANICE I DOVEDI SVOJE TIJELO U SAVRŠENU FORMU !! Očekuju vas vrijedni pokloni!
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<footer></footer>
+<script>
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    });
+
+    var draggableElements = document.getElementsByClassName("toast");
+
+    for (var i = 0; i < draggableElements.length; i++) {
+        dragElement(draggableElements[i]);
+    }
+
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id + "-header")) {
+      
+            document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
+        } else {
+     
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+      
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+    
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+       
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+       
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+         
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+
+
+    var modal = document.getElementById("myModal");
+
+
+    var btn = document.getElementById("myBtn");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+        document.getElementById('sendButton').click();          
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+
+</script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>

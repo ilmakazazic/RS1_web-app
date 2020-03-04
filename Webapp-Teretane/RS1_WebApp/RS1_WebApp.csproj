@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Uposlenici\Models\**" />
+    <Compile Remove="Areas\Uposlenici\Views\Shared\**" />
+    <Content Remove="Areas\Uposlenici\Models\**" />
+    <Content Remove="Areas\Uposlenici\Views\Shared\**" />
+    <EmbeddedResource Remove="Areas\Uposlenici\Models\**" />
+    <EmbeddedResource Remove="Areas\Uposlenici\Views\Shared\**" />
+    <None Remove="Areas\Uposlenici\Models\**" />
+    <None Remove="Areas\Uposlenici\Views\Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200207003444_Modifikacija_Trening.cs" />
+    <Compile Remove="Migrations\20200207003444_Modifikacija_Trening.Designer.cs" />
+    <Compile Remove="Migrations\20200209231225_NovaTabela_TreningZahtjev.cs" />
+    <Compile Remove="Migrations\20200209231225_NovaTabela_TreningZahtjev.Designer.cs" />
+    <Compile Remove="Migrations\20200209231453_NovaTabela_TreningZahtjev.cs" />
+    <Compile Remove="Migrations\20200209231453_NovaTabela_TreningZahtjev.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Assets\Images\mobile-push-notification-emoji.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FreeSpire.PDF" Version="5.10.0" />
+    <PackageReference Include="hiqpdf.free" Version="11.4.0" />
+    <PackageReference Include="MailKit" Version="2.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="150.1400.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1400.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.WindowsAzure.SDK" Version="2.9.0" />
+    <PackageReference Include="NReco.PdfGenerator" Version="1.1.15" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="Stripe.net" Version="34.18.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
+    <PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.59" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Clanovi\Data\" />
+    <Folder Include="Areas\Uposlenici\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Assets\Images\mobile-push-notification-emoji.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Uposlenici\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Uposlenici\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

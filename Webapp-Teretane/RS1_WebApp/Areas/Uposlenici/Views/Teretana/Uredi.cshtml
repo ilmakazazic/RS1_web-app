@@ -1,0 +1,56 @@
+@model DodajTeretanaVM
+
+
+@{
+    ViewData["Title"] = "Forma";
+}
+
+<h1>Uredi teretanu</h1>
+<br />
+<form asp-action="Uredi" enctype="multipart/form-data" method="post" class="form-group">
+    <input type="hidden" asp-for="@Model.TeretanaId" />
+    <input type="hidden" asp-for="Photo" />
+    <input asp-for="PhotoPath" hidden />
+
+    <div class="form-group">
+        <label>Naziv</label>
+        <input asp-for="@Model.Naziv" placeholder="Upišite naziv" class="form-control" />
+        <span asp-validation-for="Naziv" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label>Adresa</label>
+        <input asp-for="@Model.Adresa" placeholder="Upišite adresu" class="form-control" />
+        <span asp-validation-for="Adresa" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label>Početak radnog vremena</label>
+        <input asp-for="@Model.PocetakRadnoVrijeme" type="time" placeholder="Upišite početak radnog vremena" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Kraj radnog vremena</label>
+        <input asp-for="@Model.KrajRadnoVrijeme" type="time" placeholder="Upišite kraj radnog vremena" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Grad </label>
+        <select asp-for="GradId" asp-items="@Model.Grad" class="form-control"></select>
+
+    </div>
+
+    <div class="form-group" style="width:25%">
+        <label asp-for="Photo" class="col-form-label"></label>
+        <div class="custom-file">
+            <input asp-for="Photo" class="form-control" />
+        </div>
+    </div>
+
+        <br />
+        <button type="submit" class="btn btn-success">Snimi</button>
+</form>

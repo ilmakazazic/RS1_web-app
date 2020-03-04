@@ -1,0 +1,39 @@
+﻿@using eUniverzitet.Web.Helper
+@using Ispit.Web.Helper
+@using Microsoft.AspNetCore.Http
+@using RS1_WebApp.EntityModels
+@{
+    ViewData["Title"] = "Home Page";
+    string poruka = (string)TempData["poruka-key"];
+    KorisnickiNalog username = Context.GetLogiraniKorisnik();
+
+}
+
+
+<div class="container body-content">
+    @*<h2>@poruka</h2>*@
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-controller="Autentifikacija" asp-action="Registracija">Registracija</a>
+        @*<a class="nav-link" href="/Clanovi/Autentifikacija/Registracija">Registracija</a>*@
+
+    </div>
+
+    @if (username != null)
+    {
+        <div class="btn btn-primary btn-lg btn-block" role="alert">
+            <a class="nav-link" asp-controller="Autentifikacija" asp-action="Logout">Logout</a>
+        </div>
+
+    }
+    else
+    {
+        <div class="btn btn-primary btn-lg btn-block" role="alert">
+            <a class="nav-link" asp-controller="Autentifikacija" asp-action="Login">Login</a>
+        </div>
+
+
+    }
+</div>
+
+
+@*<a class="nav-link" asp-area="Clanovi" asp-controller="Home" asp-action="HomePocetna">Nesto</a>*@

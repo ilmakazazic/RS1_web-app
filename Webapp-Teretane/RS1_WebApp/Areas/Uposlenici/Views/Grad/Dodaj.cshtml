@@ -1,0 +1,28 @@
+﻿@model GradVM
+
+@{
+    ViewData["Title"] = "Prikaz";
+
+}
+<br />
+<form asp-action="Dodaj" method="post" class="form-group">
+    <div class="form-group">
+        <label asp-for="Grad" class="control-label">Grad: </label>
+    <input asp-for="@Model.Grad" placeholder="Upišite naziv" class="form-control" />
+    <span asp-validation-for="Grad" class="text-danger"></span>
+</div>
+
+    <div class="form-group">
+        <label>Poštanski broj: </label>
+        <input asp-for="@Model.PostanskiBroj" placeholder="Upišite adresu" class="form-control" />
+        <span asp-validation-for="PostanskiBroj" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label>Država: </label>
+        <select asp-for="DrzavaId" asp-items="@Model.Drzava" class="form-control"></select>
+    </div>
+    <button type="submit" class="btn btn-success">Snimi</button>
+
+</form>

@@ -1,0 +1,28 @@
+﻿@model TreningAjaxProcesiranjeVM
+<script src="/jsFIT.js"></script>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>Clan</th>
+            <th>Teretana</th>
+            <th>Termin</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.Zahtjevi)
+        {
+        <tr>
+            <td>@x.Clan</td>
+            <td>@x.Teretana</td>
+            <td>@x.Termin</td>
+            <td>
+                <a asp-action="ProcesiranjeSnimi" asp-route-TreningZahtjevID="@x.TreningZahtjevId" class="btn btn-sm btn-info">Prihvati zahtjev</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<br />

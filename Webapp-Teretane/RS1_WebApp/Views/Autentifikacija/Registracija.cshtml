@@ -1,0 +1,79 @@
+﻿@using RS1_WebApp.Areas.Clanovi.ViewModels
+@model RegistracijaVM
+@{
+    ViewData["Title"] = "Registracija";
+}
+
+<h1>Registracija</h1>
+
+
+<div>
+
+
+    <form asp-controller="Autentifikacija" asp-action="RegistrujSnimi">
+
+        <div class="form-group">
+            <label>Ime: </label>
+            <div>
+          
+                @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", @placeholder = "Ime" })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Prezime: </label>
+            <div>
+           
+                @Html.TextBoxFor(model => model.Prezime, new { @class = "form-control", @placeholder = "Prezime" })
+                @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Email: </label>
+            <div>
+           
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "E-mail" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Adresa: </label>
+            <div>
+                <input asp-for="Adresa" class="form-control" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Korisničko ime: </label>
+            <div>
+              
+                @Html.TextBoxFor(model => model.KorisnickoIme, new { @class = "form-control", @placeholder = "Korisničko ime" })
+                @Html.ValidationMessageFor(model => model.KorisnickoIme, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Lozinka: </label>
+            <div>
+              
+                @Html.PasswordFor(model => model.Lozinka, new { @class = "form-control", @placeholder = "Lozinka" })
+                @Html.ValidationMessageFor(model => model.Lozinka, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Tip naloga: </label>
+            <div>
+                <select asp-for="TipID" asp-items="@Model.tip" class="form-control" ></select>
+
+            </div>
+        </div>
+        <input type="submit" value="Registruj se" class="btn btn-success" />
+    </form>
+
+
+</div>

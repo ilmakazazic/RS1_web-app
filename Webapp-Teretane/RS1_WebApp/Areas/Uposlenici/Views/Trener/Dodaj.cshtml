@@ -1,0 +1,80 @@
+@model TrenerDodajUrediVM
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<form asp-action="Dodaj" enctype="multipart/form-data" class="form-group">
+    <div class="form-group">
+        <label>Ime: </label>
+        <input asp-for="@Model.Ime" class="form-control" />
+        <span asp-validation-for="Ime" class="text-danger"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label>Prezime:</label>
+            <input asp-for="@Model.Prezime" class="form-control" />
+            <span asp-validation-for="Prezime" class="text-danger"></span>
+
+        
+    </div>
+
+    <div class="form-group">
+        <label>Spol:</label>
+        <div class="input-group" style="width: 10%">
+            <input asp-for="@Model.Spol" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <div class="input-group">
+            <input asp-for="@Model.Email" type="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Datum rođenja: </label>
+        <input asp-for="@Model.datumRodjenja" type="date" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Licenca: </label>
+        <select asp-for="LicencaId" asp-items="@Model.Licenca" class="form-control"></select>
+
+    </div>
+
+
+    <div class="form-group">
+        <label>Datum polaganja licence: </label>
+        <input asp-for="@Model.DatumPolaganja" type="date" class="form-control" />
+
+    </div>
+    <div class="form-group">
+        <label>Datum isteka licence: </label>
+        <input asp-for="@Model.DatumIsteka" type="date" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+        <label>Korisničko ime: </label>
+        <input asp-for="@Model.KorisnickoIme" class="form-control" />
+        <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+
+
+    </div>
+
+    <div class="form-group">
+        <label>Lozinka:</label>
+            <input asp-for="@Model.Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+        </div>
+
+
+    <button type="submit" class="btn btn-success">Snimi</button>
+</form>

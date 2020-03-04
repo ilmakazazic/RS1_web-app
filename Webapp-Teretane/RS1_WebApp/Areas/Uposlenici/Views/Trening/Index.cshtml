@@ -1,0 +1,24 @@
+﻿@model TreningVM
+
+@{
+    ViewData["Title"] = "Prikaz teretana";
+}
+<a class="btn btn-outline-primary" asp-area="Uposlenici" asp-controller="Teretana" asp-action="Index">Teretane</a>
+<h1>Prikaz Termina</h1>
+
+<form asp-action="Index" asp-controller="TreningAjax" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="form-group small float-right">
+    <input type="hidden" asp-for="TeretanaId" />
+
+    <label>Izaberite datum treninga: </label>
+    <input asp-for="DatumString" placeholder="@Model.DatumString" type="date" class="custom-select" />
+
+    <br />
+    <br />
+    <button type="submit" class="btn btn-dark float-right">Prikaži termine</button>
+</form>
+<br />
+<div id="ajaxDiv">
+
+
+</div>
+

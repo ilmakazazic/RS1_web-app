@@ -1,0 +1,78 @@
+﻿@model TeretanaVM
+
+@{
+    ViewData["Title"] = "Prikaz teretana";
+    int counter = 0;
+}
+
+<h1>Prikaz teretana</h1>
+<br />
+    <div class="col-sm-12 text-center">
+        <a asp-controller="Teretana" asp-action="Dodaj" class="btn btn-secondary text-center">Dodaj novu teretanu</a>
+    </div>
+<br />
+<div class="row">
+    @foreach (var x in Model.teretane)
+    {
+        if (counter != 0 && counter % 3 == 0)
+        {
+        @:</div>
+        @:<div class="row">
+}
+
+
+
+            <div class="col-md-4 bo">
+                <div class="card text-white border-dark mb-3">
+
+                    <div class="card-header">
+                        <h3 id="thumbnail-label">@x.Naziv</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="thumbnail">
+                            @if (x.Slika == null)
+                            {
+                                <a asp-action="Index" asp-controller="Trening" asp-route-TeretanaID="@x.TeretanaId">
+                                    <img src="~/images/no-image.png" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                                </a>
+
+                            }
+                            else
+                            {
+                                <a asp-action="Index" asp-controller="Trening" asp-route-TeretanaID="@x.TeretanaId">
+                                    <img src="~/images/@x.Slika" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                                </a>
+
+                            }
+                        </div>
+                            <br />
+                            <div class="card-text">
+                                <p>@x.Adresa</p>
+                                <p>@x.Grad</p>
+                                <p>Radno vrijeme: @x.PocetakRadnoVrijeme.ToString("hh\\:mm") - @x.KrajRadnoVrijeme.ToString("hh\\:mm")</p>
+
+                                <a asp-controller="Clan" asp-action="Index" asp-route-TeretanaID="@x.TeretanaId" class="btn btn-sm btn-dark float-md-left mr-2">Clanovi</a>
+                                <a asp-controller="Clanarina" asp-action="Index" asp-route-TeretanaID="@x.TeretanaId" class="btn btn-sm btn-dark float-md-left mr-2">Popusti</a>
+
+                                <a asp-controller="Teretana" asp-action="Uredi" asp-route-TeretanaID="@x.TeretanaId" class="btn btn-sm btn-dark float-md-right ">Uredi</a>
+                                <a asp-controller="Teretana" asp-action="Obrisi" asp-route-TeretanaID="@x.TeretanaId" class="btn btn-sm btn-dark float-md-right mr-2">Obriši</a>
+
+                            </div>
+
+                          
+
+                    </div>
+
+                </div>
+                <br />
+                <br />
+            </div>
+
+        counter++;
+        }
+    </div>
+
+
+
+

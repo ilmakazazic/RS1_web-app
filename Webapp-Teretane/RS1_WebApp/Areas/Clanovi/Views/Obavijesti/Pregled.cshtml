@@ -1,0 +1,106 @@
+﻿@using RS1_WebApp.Areas.Clanovi.ViewModels
+@model ObavijestVM
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    #more {
+        display: none;
+    }
+
+    .oznaci {
+        background-color: #469ADA;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    #myBtn {
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        background-color: #469ADA;
+    }
+</style>
+<div class="form-group">
+    <br />
+    <br />
+<img src="~/Assets/Images/obavijesti.png" width="150" height="80" />
+    <h1>OBAVIJESTI</h1>
+</div>
+<br />
+<table class="table table-hover">
+
+    <thead class="thead-dark">
+        <tr>
+            <th>Naziv</th>
+            <th>Sadržaj</th>
+            <th>Datum objave</th>
+            <th>Teretana</th>
+            <th>Označi kao pročitanu</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model.rows)
+        {
+            <tr>
+                <td>@o.Naziv</td>
+                <td>
+                    @o.Sadrzaj
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum,
+                        nisi lorem egestas vitae scel<span id="dots">...</span><span id="more-@o.ObavijestID">erisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span>
+                    </p>
+
+                    <button class="buttonload" onclick="myFunction(@o.ObavijestID)" id="myBtn-@o.ObavijestID">
+                       Prikaži manje
+                    </button>
+                </td>
+                <td>@o.DatumObjave.ToString("dd.MM.yyyy")</td>
+                <td>@o.Teretana</td>
+                @if (o.procitana == false)
+                {
+                    <td><a class="oznaci" asp-controller="Obavijesti" asp-action="Oznaci" asp-route-obavijestId="@o.ObavijestID">Označi</a></td>
+                }
+                else
+                {
+                    <td>Pročitana</td>
+                }
+
+
+            </tr>
+
+        }
+
+
+
+    </tbody>
+
+</table>
+<br />
+
+
+<script>
+    function myFunction(obavijest) {
+        //var proba = obavijest;
+        var dots = document.getElementById("dots");
+        var moreText = document.getElementById("more-" + obavijest);
+        var btnText = document.getElementById("myBtn-" + obavijest);
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Prikaži više";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Prikaži manje";
+            moreText.style.display = "inline";
+        }
+    }
+
+</script>

@@ -1,0 +1,445 @@
+﻿@using RS1_WebApp.Areas.Clanovi.ViewModels
+@model ProfilVM
+@{
+    ViewData["Title"] = "Prikaz";
+}
+<style>
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding:8px 8px 8px 8px;
+        background-color:#469ADA;
+        border:solid 1px black;
+        color:white;
+    }
+        .popup:hover {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 8px 8px 8px 8px;
+            background-color: #aad1ee;
+            border: solid 1px black;
+            color: white;
+        }
+
+
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+    
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+    .Ocjene{
+        display:inline-flex;
+    }
+ 
+    .tab {
+        overflow: hidden;
+        background-color: #469ADA;
+        width: 39%;
+    }
+  
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+
+          
+            .tab button:hover {
+                background-color: #aad1ee;
+            }
+
+         
+            .tab button.active {
+                background-color: #aad1ee;
+            }
+
+ 
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+       
+    }
+
+
+    .rb-box {
+        width: 80%;
+        max-width: 420px;
+        margin: 50px auto;
+        padding: 1.3em;
+        background: #292942;
+        border-radius: .75em;
+        -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+        filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+        box-shadow: 0 2px 2px rgba(243,49,128,.5), 0 0px 5px rgba(243,49,128,.15), 0 0px 4px rgba(0,0,0,.35), 0 5px 20px rgba(243,49,128,.25), 0 15px 50px rgba(243,49,128,.75), inset 0 0 15px rgba(255,255,255,.05);
+    }
+
+      
+        p {
+            font-size: .9em;
+        }
+
+        .rb {
+            padding: 16px 0;
+            text-align: center;
+            background: rgba(255,255,255,.03);
+            border-radius: .3em;
+        }
+
+        .rb-tab {
+            display: inline-block;
+            position: relative;
+            width: 20%;
+        }
+
+        .rb-txt {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: .5em;
+            color: #FFFFFF;
+        }
+
+        .rb-spot {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 100%;
+            cursor: pointer;
+            transition: ease .5s;
+        }
+
+        .rb-tab-active .rb-spot {
+            background: rgba(0,0,0,.35);
+            border: 2px solid rgba(243,49,128,.6);
+        }
+        #Otkazan{
+            cursor:not-allowed;
+        }
+
+</style>
+<h1>Moj profil</h1>
+
+<div class="btn-group btn-group-justified">
+
+</div>
+<form asp-controller="Profil" asp-action="UrediProfil" method="post">
+    <h3>Lični podaci: </h3>
+    <div class="form-group">
+        <label>Ime i prezime: @Model.Naziv</label>
+    </div>
+    <div class="form-group">
+        <label>Korisničko ime: @Model.KorisnickoIme</label>
+    </div>
+    <div class="form-group">
+        <label>Lozinka: @Model.Lozinka</label>
+    </div>
+    <br />
+    <input type="hidden" asp-for="@Model.ClanID" />
+    <input type="submit" class="btn btn-info" value="Uredi profil" />
+</form>
+<br />
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Teretane')">Vaše teretane</button>
+    <button class="tablinks" onclick="openCity(event, 'Treninzi')">Rezervisani treninzi</button>
+    <button class="tablinks" onclick="openCity(event, 'Clanarine')">Plaćene članarine</button>
+</div>
+
+
+<div id="Teretane" class="tabcontent">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Rezerviši trening</th>
+                <th>Vaš komentar</th>
+                <th>Ocijeni teretanu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.Teretane)
+            {
+                <tr>
+                    <td>@x.Naziv</td>
+                    <td>
+                        <a class="btn btn-info" asp-controller="Profil" asp-action="RezervisiTrening" asp-route-clanID="@Model.ClanID" asp-route-teretanaID="@x.TeretanaID">Rezerviši trening</a>
+
+                    </td>
+                  
+                    <td>
+
+                        @if (String.IsNullOrEmpty(x.Komentar))
+                        {
+                            <input asp-for="@x.Komentar" id="kom"  />
+                            <button class="btn btn-info" id="uredi" value="@x.Komentar" data-datac="@Model.ClanID" data-datat="@x.TeretanaID">
+                                Dodaj komentar
+
+                            </button>
+                        
+                        }
+                        else
+                        {
+                            <input asp-for="@x.Komentar" readonly class="form-control" />
+                        }
+
+                    </td>
+                    <td>
+                     
+                        <div class="Ocjene">
+                            <a class="popup" onclick="PopUP()" asp-controller="Profil" asp-action="Ocijeni" asp-route-clanID="@Model.ClanID" asp-route-ocjena="1"  asp-route-teretanaID="@x.TeretanaID">
+                                1
+                                <span class="popuptext" id="myPopup">Uspješno ste dodali ocjenu!</span>
+                            </a>
+                            <a class="popup" onclick="PopUP()" asp-controller="Profil" asp-action="Ocijeni" asp-route-clanID="@Model.ClanID" asp-route-ocjena="2"  asp-route-teretanaID="@x.TeretanaID">
+                            2
+                                <span class="popuptext" id="myPopup">Uspješno ste dodali ocjenu!</span>
+                            </a>
+                            <a class="popup" onclick="PopUP()" asp-controller="Profil" asp-action="Ocijeni" asp-route-clanID="@Model.ClanID" asp-route-ocjena="3"  asp-route-teretanaID="@x.TeretanaID">
+                                3
+                                <span class="popuptext" id="myPopup">Uspješno ste dodali ocjenu!</span>
+                            </a>
+                            <a class="popup" onclick="PopUP()" asp-controller="Profil" asp-action="Ocijeni" asp-route-clanID="@Model.ClanID" asp-route-ocjena="4"  asp-route-teretanaID="@x.TeretanaID">
+                               4
+                                <span class="popuptext" id="myPopup">Uspješno ste dodali ocjenu!</span>
+                            </a>
+                            <a class="popup" onclick="PopUP()" asp-controller="Profil" asp-action="Ocijeni" asp-route-clanID="@Model.ClanID" asp-route-ocjena="5"  asp-route-teretanaID="@x.TeretanaID">
+                                5
+                                <span class="popuptext" id="myPopup">Uspješno ste dodali ocjenu!</span>
+                            </a>
+
+
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div id="Treninzi" class="tabcontent">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Teretana</th>
+                <th>Datum i vrijeme</th>
+                <th>Opcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.Treninzi)
+            {
+                <tr>
+                    <td>@x.Teretana</td>
+                    <td>@x.DatumVrijeme</td>
+                    @if (x.Otkazan == false)
+                    {
+                        <td><a class="btn btn-info" asp-controller="Profil" asp-action="OtkaziTrening" asp-route-treningID="@x.TreninziDetaljiID">Otkaži trening</a></td>
+                    }
+                    else
+                    {
+                        <td><button class="btn btn-danger" id="Otkazan">Otkazan</button></td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<div id="Clanarine" class="tabcontent">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Teretana: </th>
+                <th>Datum uplate: </th>
+                <th>Tip članarine: </th>
+                <th>Popust: </th>
+                <th>Ukupan iznos: </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model.clanarine)
+            {
+            <tr>
+                <td>@c.Teretana</td>
+                <td>@c.Datum</td>
+                <td>@c.TipClanarine</td>
+                <td>@c.Popust</td>
+                <td>@c.Ukupno KM</td>
+
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+<script>
+    document.getElementsByClassName('tablinks')[0].click();
+    function PopUP() {
+        var popup = document.getElementById("myPopup");
+        setTimeout(function() {document.getElementById('myPopup').innerHTML='';},15000);
+  popup.classList.toggle("show");
+}
+
+
+
+       $("#uredi").click(function () {
+           var clanID = $(this).attr('data-datac');
+           var teretanaID = $(this).attr('data-datat');
+           var Komentar = document.getElementById("kom").value;
+        $.ajax({
+            url: '@Url.Action("DodajKomentar","Profil")',
+            data: { 'clanID': clanID,'Komentar':Komentar,'teretanaID':teretanaID},
+            type: "get",
+            success: function (data) {
+                window.location.reload(true);
+            }
+
+        });
+    });
+
+    $(function(){
+
+    $("#radio1").change(function(){
+        alert('changed');   
+    });          
+
+});
+
+        $("#radio1").click(function () {
+           var ocjena = $(this).attr("value");
+           var clanID = $(this).attr('data-datac');
+           var teretanaID = $(this).attr('data-datat');
+           var ocjena = document.getElementById("ocjena").value;
+        $.ajax({
+            url: '@Url.Action("Ocijeni","Profil")',
+            data: { 'clanID': clanID,'ocjena':ocjena,'teretanaID':teretanaID},
+            type: "get"
+            //success: function (data) {
+            //    $("#unosDiv").html(data);
+            
+
+        });
+    });
+
+  
+
+    var survey = []; 
+
+
+$(".rb-tab").click(function(){
+ 
+  $(this).parent().find(".rb-tab").removeClass("rb-tab-active");
+  $(this).addClass("rb-tab-active");
+});
+
+
+$(".trigger").click(function(){
+  
+  survey = [];
+
+  for (i=1; i<=$(".rb").length; i++) {
+    var rb = "rb" + i;
+    var rbValue = parseInt($("#rb-"+i).find(".rb-tab-active").attr("data-value"));
+
+    survey.push([i, rbValue]); 
+  };
+  
+  debug();
+});
+
+
+function debug(){
+  var debug = "";
+  for (i=0; i<survey.length; i++) {
+    debug += "Nº " + survey[i][0] + " = " + survey[i][1] + "\n";
+  };
+  alert(debug);
+};
+
+
+
+
+
+    function openCity(evt, cityName) {
+  
+  var i, tabcontent, tablinks;
+
+  
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+
+
+
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//code.jquery.com/jquery-1.8.2.min.js"></script>
+<script src="//cdn.oesmith.co.uk/morris-0.4.1.min.js"></script>
+

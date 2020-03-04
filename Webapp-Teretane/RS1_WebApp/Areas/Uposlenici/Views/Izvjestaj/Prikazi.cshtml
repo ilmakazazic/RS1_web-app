@@ -1,0 +1,72 @@
+﻿@model IzvjestajPrikazVM
+@{
+    ViewData["Title"] = "Prikaz";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.13/jspdf.plugin.autotable.js"></script>
+
+<button onclick="demoFromHTML()" class="btn btn-info  text-center">Snimi izvještaj</button>
+<div id="content">
+    <h1 id="bypassme">Izvještaj</h1>
+    <table id="table" class="display table table-bordered table-striped row-
+border order-column" cellspacing="0" width="100%">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>Ime i prezime</th>
+                <th>Iznos</th>
+                <th>Datum uplate</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model.izvjestaj)
+            {
+                <tr>
+                    <td>@x.ImePrezime</td>
+                    <td>@x.Iznos</td>
+                    <td>@x.DatumUplate</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+<script type="text/javascript">
+
+function demoFromHTML() {
+    var pdf = new jsPDF('p', 'pt', 'letter');
+    source = $('#content')[0];
+
+    specialElementHandlers = {
+        '#bypassme': function (element, renderer) {
+            return true
+        }
+    };
+    margins = {
+        top: 80,
+        bottom: 60,
+        left: 10,
+        width: 700
+    };
+
+    pdf.fromHTML(
+    source, 
+    margins.left, 
+    margins.top, { 
+        'width': margins.width, // max width of content on PDF
+        'elementHandlers': specialElementHandlers
+    },
+
+    function (dispose) {
+        pdf.save('Test.pdf');
+    }, margins);
+}
+</script>
+
+

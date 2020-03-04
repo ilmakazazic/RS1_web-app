@@ -1,0 +1,95 @@
+﻿@model KuponVM
+
+@{
+    ViewData["Title"] = "Prikaz Kupona";
+    string poruka = (string)TempData["Poruka-kupon"];
+
+}
+<h1>Kuponi</h1>
+<br />
+@if (poruka != null)
+{
+    <div class="alert alert-dismissible alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @poruka
+    </div>
+}
+<br />
+<input type="text" id="myInput" class="form-control" style="width: 20% " onkeyup="myFunction()" placeholder="Pretrazi kupone..." />
+<br />
+
+<table class="table text-center" id="myTable">
+    <thead>
+        <tr>
+            <th>Kod</th>
+            <th>Sniženje</th>
+            <th>Datum aktivacije</th>
+            <th>Datum Isteka</th>
+            <th>Broj trenutnih korištenja</th>
+            <th>Broj dozvoljenih korištenja</th>
+            <th>Status</th>
+            <th>Opcije</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.Kuponi)
+        {
+
+            <tr>
+                <td><a class="btn btn-sm btn-info">@x.KuponKod</a></td>
+                <td>@x.Postotak%</td>
+                <td>@x.PocetakDatum</td>
+                <td>@x.KrajDatum</td>
+                <td>@x.Brojac_Koristenja</td>
+                <td>@x.Broj_Koristenja</td>
+                @if (x.Aktivan)
+                {
+                    <td><img src="~/images/green.png" data-holder-rendered="true"></td>
+                    <td><a asp-action="OtkaziKupon" asp-controller="Clanarina" asp-route-PopustKuponID="@x.PopustKuponId" asp-route-TeretanaID="@Model.TeretanaId" class="btn btn-outline-danger btn-sm">Otkazi</a></td>
+
+                }
+                else
+                {
+                    <td><img src="~/images/red.png" data-holder-rendered="true"></td>
+                    <td> </td>
+                }
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<br />
+
+<div id="ajaxPoziv">
+
+</div>
+<br />
+<a asp-action="Dodaj" asp-route-TeretanaID="@Model.TeretanaId" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-dark">Dodaj kupon</a>
+
+
+<script>
+    function myFunction() {
+
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

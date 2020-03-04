@@ -1,0 +1,19 @@
+﻿@using RS1_WebApp.Areas.Clanovi.ViewModels;
+@using RS1_Teretana.EntityModels;
+@model KomentarVM
+@{
+    ViewData["Title"] = "Komentar";
+}
+
+<h1>Komentar</h1>
+
+<form>
+    <div class="form-group">
+        <label>Teretana: @Model.Teretana</label>
+
+    </div>
+    <div class="form-group">
+        <label>Dodaj komentar:</label>
+        <input asp-for="Komentar" class="form-control" />
+    </div>
+</form>

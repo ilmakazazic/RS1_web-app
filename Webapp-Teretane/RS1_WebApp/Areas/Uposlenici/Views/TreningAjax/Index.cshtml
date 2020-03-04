@@ -1,0 +1,54 @@
+﻿@model TreningAjaxVM
+<script src="/jsFIT.js"></script>
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Početak</th>
+            <th>Kraj</th>
+            <th>Trener</th>
+            <th>Broj rezervisanih / Broj mogucih rezervacija</th>
+            <th>Broj zahtjeva</th>
+            <th>Obrada zahtjeva</th>
+
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.termini)
+        {
+        <tr>
+            <td>@x.PočetakTreninga.ToString("hh\\:mm")</td>
+            <td>@x.KrajTreninga.ToString("hh\\:mm")</td>
+            <td>@x.Trener</td>
+            <td>@x.BrojTrenutnihRezrevacija/@x.BrojRezrevacija</td>
+            <td>
+                <a asp-action="Procesiranje" asp-route-TreningID="@x.TreningID" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-sm btn-outline-info">@x.BrojZahtjeva</a>
+            </td>
+
+            @if (x.BrojZahtjeva > 0)
+            {
+                <td>
+                    <a asp-action="ProcesiranjeSvihZahtjeva" asp-route-TreningID="@x.TreningID" asp-route-TeretanaID="@Model.TeretanaID" class="btn btn-sm btn-primary">Prihvati sve</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                </td>
+            }
+
+            <td>
+                <a asp-action="Uredi" asp-route-TreningID="@x.TreningID" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-sm btn-outline-secondary">Uredi</a>
+                <a asp-action="Obrisi" asp-route-TreningId="@x.TreningID" class="btn btn-sm btn-outline-danger">Obriši</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div id="ajaxPoziv">
+
+</div>
+<br />
+<a asp-action="Dodaj" asp-route-TeretanaID="@Model.TeretanaID" asp-route-DatumString="@Model.DatumString" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-dark">Dodaj</a>

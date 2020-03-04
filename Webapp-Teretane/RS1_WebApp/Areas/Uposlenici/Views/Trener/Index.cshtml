@@ -1,0 +1,135 @@
+﻿@model TrenerVM
+
+@{
+    ViewData["Title"] = "Prikaz Kupona";
+    string Poruka = (string)TempData["poruka-error"];
+
+}
+<h1>Treneri</h1>
+@if (Poruka != null)
+{
+    <div class="alert alert-warning">@Poruka</div>
+    <br />
+
+}
+<br />
+<div class="form-group float-left">
+    <input type="text" id="myInput" class="form-control" style="width: 100% " onkeyup="myFunction()" placeholder="Pretrazi trenere..." />
+
+</div>
+<div class="clearfix">
+    <a asp-action="Dodaj" asp-controller="Trener" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-dark float-right mr-3">Dodaj trenera</a>
+
+    <a asp-action="DodajLicencu" asp-controller="Trener" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-dark float-right mr-3">Dodaj licencu</a>
+
+</div>
+<br />
+<div id="ajaxPoziv">
+
+</div>
+<br />
+
+
+<table class="table text-center" id="myTable">
+    <thead>
+        <tr>
+            <th>Trener</th>
+            <th>Datum rođenja</th>
+            <th>Email</th>
+            <th>Licenca</th>
+            <th>Datum polaganja licence</th>
+            <th>Datum isteka licence</th>
+            <th>Opcije</th>
+            <th>Opcije</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.treneri)
+        {
+
+            <tr>
+                <td>@x.ImePrezime</td>
+                <td>@x.datumRodjenja</td>
+                <td>@x.Email</td>
+                <td>
+                    @foreach (var v in x.Licenca)
+                    {
+                        @v.Licenca.Tip<br />
+                        <br />
+
+
+                    }
+
+                </td>
+                <td>
+                    @foreach (var v in x.Licenca)
+                    {
+                        @v.DatumPolaganja.ToString("dd.MM.yyyy")<br />
+                        <br />
+
+
+                    }
+                </td>
+                <td>
+                    @foreach (var v in x.Licenca)
+                    {
+                        @v.DatumIsteka.ToString("dd.MM.yyyy")<br />
+                        <br />
+
+                    }
+                </td>
+                <td>
+                    @foreach (var v in x.Licenca)
+                    {
+                        <a asp-action="UrediLicencu" asp-controller="Trener" asp-route-TrenerLicencaID="@v.TrenerLicencaId" ajax-poziv="da" ajax-rezultat="ajaxPoziv"><img src="~/images/edit.png" data-holder-rendered="true"></a>
+                        <a asp-action="ObrisiLicencu" asp-controller="Trener" asp-route-TrenerLicencaID="@v.TrenerLicencaId" ajax-poziv="da" ajax-rezultat="ajaxPoziv"><img src="~/images/delete.png" data-holder-rendered="true"></a>
+
+                        <br />
+                        <br />
+
+                    }
+                    <a asp-action="DodajLicencuTrener" asp-controller="Trener" asp-route-TrenerID="@x.TrenerId" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-outline-info btn-sm">Add</a>
+
+                </td>
+
+                <td class="mr-3">
+                    <a asp-action="Uredi" asp-controller="Trener" asp-route-TrenerID="@x.TrenerId" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-outline-danger btn-sm">Uredi</a>
+                    <a asp-action="Obrisi" asp-controller="Trener" asp-route-TrenerID="@x.TrenerId" class="btn btn-outline-danger btn-sm">Obriši</a>
+                </td>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<br />
+
+
+
+<script>
+    function myFunction() {
+
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

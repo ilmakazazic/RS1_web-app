@@ -1,0 +1,43 @@
+﻿@model GradPrikazVM
+@{
+    ViewData["Title"] = "Prikaz";
+
+}
+
+<h1>Gradovi</h1>
+<table class="table table-hover">
+
+    <thead class="thead-dark">
+        <tr>
+            <th>Naziv grada</th>
+            <th>Poštanski broj</th>
+            <th>Država</th>
+            <th>Opcije</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.gradovi)
+        {
+            <tr>
+                <td>@x.Grad</td>
+                <td>@x.PostanskiBroj</td>
+                <td>@x.Drzava</td>
+
+                <td>
+                    <a asp-controller="Grad" asp-action="Obrisi" asp-route-GradID="@x.GradId" class="btn btn-sm btn-outline-danger">Obriši</a>
+
+                </td>
+
+            </tr>
+
+        }
+
+
+
+    </tbody>
+
+</table>
+
+<a asp-controller="Grad" asp-action="Dodaj" class="btn btn-secondary">Dodaj</a>
+
