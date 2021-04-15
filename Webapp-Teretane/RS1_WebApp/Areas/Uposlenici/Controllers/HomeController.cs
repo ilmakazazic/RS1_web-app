@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RS1_WebApp.Areas.Uposlenici.Controllers
 {
-    //[Authorize]
     [Area("Uposlenici")]
     public class HomeController : Controller
     {

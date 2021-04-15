@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RS1_Teretana.EntityModels
 {
@@ -10,9 +6,6 @@ namespace RS1_Teretana.EntityModels
     {
         [Key]
         public int LicencaID { get; set; }
-
         public string Tip { get; set; }
-
-
     }
 }

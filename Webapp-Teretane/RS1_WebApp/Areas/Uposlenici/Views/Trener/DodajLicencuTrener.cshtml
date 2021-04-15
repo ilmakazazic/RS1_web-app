@@ -1,7 +1,5 @@
 @model TrenerDodajLicencuTrenerVM
 
-   
-
 <form asp-action="DodajLicencuTrener" enctype="multipart/form-data" class="form-group">
 
     <div class="form-group">
@@ -9,7 +7,6 @@
         <select asp-for="LicencaId" asp-items="@Model.Licenca" class="form-control"></select>
 
     </div>
-
 
     <div class="form-group">
         <label>Datum polaganja licence: </label>
@@ -23,7 +20,5 @@
     </div>
     <input asp-for="TrenerId" type="hidden" />
     <button type="submit" class="btn btn-success">Snimi</button>
-
-
 
 </form>

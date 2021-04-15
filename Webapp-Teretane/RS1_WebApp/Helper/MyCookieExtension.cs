@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace eUniverzitet.Web.Helper
+namespace RS1_WebApp.Web.Helper
 {
     public static class MyCookieExtension
     {

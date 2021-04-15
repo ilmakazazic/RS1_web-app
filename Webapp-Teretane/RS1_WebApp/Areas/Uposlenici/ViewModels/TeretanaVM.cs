@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RS1_WebApp.Areas.Uposlenici.ViewModels
 {
     public class TeretanaVM
     {
-
         public List<Row> teretane { get; set; }
         public class Row
         {
@@ -20,6 +17,5 @@ namespace RS1_WebApp.Areas.Uposlenici.ViewModels
             public string Grad { get; set; }
 
         }
-
     }
 }

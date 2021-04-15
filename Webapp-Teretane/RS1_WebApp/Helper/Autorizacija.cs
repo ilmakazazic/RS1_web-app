@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using eUniverzitet.Web.Helper;
-//using Ispit.Data.EntityModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RS1_WebApp.EntityModels;
+using RS1_WebApp.Web.Helper;
 
 namespace Ispit.Web.Helper
 {
@@ -16,7 +15,6 @@ namespace Ispit.Web.Helper
             Arguments = new object[] {  };
         }
     }
-
 
     public class MyAuthorizeImpl : IAsyncActionFilter
     {
@@ -38,7 +36,7 @@ namespace Ispit.Web.Helper
                 return;
             }
 
-                await next(); //ok - ima pravo pristupa
+            await next(); 
            
         }
 

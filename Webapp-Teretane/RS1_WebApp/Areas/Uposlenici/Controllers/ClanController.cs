@@ -1,25 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http;
 using RS1_Teretana.EF;
-using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
-using RS1_WebApp.ViewModels;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.EntityFrameworkCore;
-using Spire.Pdf;
-using System.Drawing;
-using Spire.Pdf.Widget;
-using Spire.Pdf.Fields;
-using System.Threading;
-using Spire.Pdf.HtmlConverter;
 
 
 namespace RS1_WebApp.Areas.Uposlenici.Controllers
@@ -38,7 +22,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
             var datum = db.PlacanjeClanarine.Where(c => c.TeretanaID == TeretanaID).OrderByDescending(p => p.PlacanjeClanarineID).FirstOrDefault();
             ClanTeretanaVM vm = new ClanTeretanaVM()
             {
-
                 TeretanaID = TeretanaID,
                 clanovi = db.ClanTeretana.Include(c => c.Clan)
                 .Include(c => c.Teretana)
@@ -55,9 +38,7 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                             .OrderByDescending(x => x.PlacanjeClanarineID).FirstOrDefault() == null ? false : true
                 }).ToList()
             };
-            
             return View(vm);
         }
-
 	}
 }

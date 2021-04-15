@@ -1,5 +1,4 @@
-﻿using eUniverzitet.Web.Helper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RS1_Teretana.EF;
 using RS1_Teretana.EntityModels;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RS1_WebApp.Web.Helper;
 
 namespace RS1_WebApp.Areas.Clanovi.Controllers
 {

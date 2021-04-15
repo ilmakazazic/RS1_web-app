@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using RS1_WebApp.EntityModels;
 
 namespace RS1_Teretana.EF
@@ -53,12 +54,14 @@ namespace RS1_Teretana.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Server=app.fit.ba;Database=p1851;Trusted_Connection=False;MultipleActiveResultSets=true; User ID=MelisaS; Password=e4$ct50R");
-            //optionsBuilder.UseSqlServer("Server=p1851dbserver.database.windows.net;Database=p1851_Db;Trusted_Connection=False;MultipleActiveResultSets=true; User ID=melisa; Password=MelSm123");
-            optionsBuilder.UseSqlServer("Server=.;Database=1_seminarski;Trusted_Connection=True;MultipleActiveResultSets=true");
-
-            //            optionsBuilder.UseSqlServer(@"Server=p1851dbserver.database.windows.net;Database=p1851_db;Trusted_Connection=true;
-            //MultipleActiveResultSets=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            }
             base.OnConfiguring(optionsBuilder);
         }
     }

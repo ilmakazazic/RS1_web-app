@@ -1,9 +1,5 @@
-﻿@page
+﻿y@page
 
-@*@using RS1_WebApp.ViewModels
-    @{
-        ViewData["Title"] = "Home Page";
-    }*@
 <style>
     .toast-body {
         background-color: #aad1ee;
@@ -28,12 +24,9 @@
     .toast {
         position: absolute;
         z-index: 9;
-        /*padding: 10px 10px 10px 10px;*/
         background-color: #aad1ee;
         border: 1px solid #d3d3d3;
         text-align: center;
-        /*margin-left:30px;
-        margin-right:30px;*/
     }
 
     .toast-header {
@@ -47,10 +40,7 @@
 
     .modal {
         display: none;
-        /*position: fixed;*/
         z-index: 1; 
-        /*left: 0;
-        top: 0;*/
         width: 60%; 
         height: 50%; 
         overflow: auto; 
@@ -170,12 +160,6 @@
                         <hr />
                     </div>
                 </div>
-                @*<div class="row">
-                    <div class="col-6">
-                        <ul id="messagesList"></ul>
-                    </div>
-                </div>*@
-
             </div>
             <div class="modal-footer">
 
@@ -184,12 +168,6 @@
     </div>
 
     <br /><br />
-
-
-
-
-
-
 
     <div class="btn btn-primary btn-lg btn-block" role="alert">
         <a class="nav-link" asp-area="Clanovi" asp-controller="Teretane" asp-action="PrikaziTeretane">Pretraga teretana</a>
@@ -204,7 +182,6 @@
         <a class="nav-link" asp-area="Clanovi" asp-controller="Clanarina" asp-action="Index">Plati članarinu</a>
     </div>
 
-@*</div>*@
 <br />
 <br />
 <h3>Novosti: </h3>
@@ -302,13 +279,8 @@
         }
     }
 
-
-
     var modal = document.getElementById("myModal");
-
-
     var btn = document.getElementById("myBtn");
-
     var span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function () {
@@ -325,8 +297,6 @@
             modal.style.display = "none";
         }
     }
-
-
 
 </script>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>

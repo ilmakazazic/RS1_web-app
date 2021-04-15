@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RS1_WebApp.Areas.Uposlenici.ViewModels
 {
@@ -18,6 +15,5 @@ namespace RS1_WebApp.Areas.Uposlenici.ViewModels
             public double Iznos { get; set; }
             public string DatumUplate { get; set; }
         }
-
     }
 }

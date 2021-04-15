@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Stripe;
 using RS1_Teretana.EntityModels;
-using eUniverzitet.Web.Helper;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using RS1_WebApp.Web.Helper;
 
 namespace RS1_WebApp.Areas.Clanovi.Controllers
 {

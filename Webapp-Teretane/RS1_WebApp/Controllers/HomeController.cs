@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using eUniverzitet.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RS1_Teretana.EF;
 //using RS1_WebApp.Models;
 using RS1_WebApp.ViewModels;
+using RS1_WebApp.Web.Helper;
 
 namespace RS1_WebApp.Controllers
 {

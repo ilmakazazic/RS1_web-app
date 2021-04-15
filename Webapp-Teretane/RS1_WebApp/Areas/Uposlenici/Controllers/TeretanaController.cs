@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using RS1_Teretana.EF;
 using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
-using RS1_WebApp.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 
 namespace RS1_WebApp.Areas.Uposlenici.Controllers
 {
@@ -42,7 +37,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                     Slika=x.PhotoPath
                 }).ToList()
             };
-            
             return View(vm);
         }
 
@@ -57,8 +51,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                     Text = x.Naziv
                 }).ToList()
             };
-            
-            
             return View(vm);
         }
 
@@ -66,7 +58,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
         public IActionResult Dodaj(DodajTeretanaVM vm)
         {
             var t = db.Teretana.Where(c=>c.Naziv==vm.Naziv && c.Adresa==vm.Adresa).Count();
-
             if(t!=0)
             {
                 TempData["poruka-key"] = "Teretana već postoji!";
@@ -132,8 +123,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                 
                 
             };
-
-
             return View(vm);
         }
 
@@ -171,16 +160,12 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
             db.Teretana.Update(t);
             db.SaveChanges();
-
-
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Obrisi(int TeretanaID)
         {
-         
             Teretana t = db.Teretana.Find(TeretanaID);
-
             if (t == null)
             {
                 return Content("Teretana ne postoji!");

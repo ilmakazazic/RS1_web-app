@@ -1,5 +1,4 @@
 ﻿@model TreningAjaxDodajVM
-
 <br />
 <form asp-action="Uredi" class="form-group">
     <div class="form-group">
@@ -14,13 +13,11 @@
 
     </div>
 
-
     <div class="form-group">
         <label>Datum</label>
         <input asp-for="Datum" class="form-control" readonly />
 
     </div>
-
 
     <div class="form-group">
         <label>Trener: </label>
@@ -48,7 +45,5 @@
 
     <input type="hidden" asp-for="TeretanaId" />
     <input type="hidden" asp-for="TreningId" />
-
-
     <button type="submit" class="btn btn-success">Snimi</button>
 </form>

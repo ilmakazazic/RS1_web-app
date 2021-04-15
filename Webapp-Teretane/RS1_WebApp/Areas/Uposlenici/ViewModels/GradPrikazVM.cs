@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RS1_WebApp.Areas.Uposlenici.ViewModels
 {
@@ -12,14 +9,9 @@ namespace RS1_WebApp.Areas.Uposlenici.ViewModels
         {
             public int GradId { get; set; }
             public string Grad { get; set; }
-
             public string PostanskiBroj { get; set; }
-
             public string Drzava { get; set; }
-
             public int DrzavaId { get; set; }
-
         }
-
     }
 }

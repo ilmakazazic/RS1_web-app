@@ -14,12 +14,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.EntityFrameworkCore;
-using Spire.Pdf;
 using System.Drawing;
-using Spire.Pdf.Widget;
-using Spire.Pdf.Fields;
 using System.Threading;
-using Spire.Pdf.HtmlConverter;
 
 
 namespace RS1_WebApp.Areas.Uposlenici.Controllers

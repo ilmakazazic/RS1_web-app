@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RS1_Teretana.EF;
 using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
-using RS1_WebApp.ViewModels;
 
 namespace RS1_WebApp.Controllers
 {
@@ -21,6 +18,7 @@ namespace RS1_WebApp.Controllers
         {
             db = context;
         }
+
         public IActionResult Index()
         {
             GradPrikazVM vm = new GradPrikazVM()
@@ -33,11 +31,8 @@ namespace RS1_WebApp.Controllers
                     PostanskiBroj = x.PostanskiBroj
                 }).ToList()
             };
-
-
             return View(vm);
         }
-
 
         [HttpGet]
         public IActionResult Dodaj()
@@ -62,15 +57,10 @@ namespace RS1_WebApp.Controllers
                 PostanskiBroj = vm.PostanskiBroj,
                 DrzavaID = vm.DrzavaId,
             };
-
             db.Grad.Add(x);
             db.SaveChanges();
-
-
             return RedirectToAction(nameof(Index));
         }
-
-
 
         public IActionResult Obrisi(int GradID)
         {
@@ -87,12 +77,9 @@ namespace RS1_WebApp.Controllers
         public int BrojDrzava()
         {
             MyContext db = new MyContext();
-
             List<Drzava> drzave = db.Drzava.ToList();
             int broj = drzave.Count();
             return broj;
         }
-
-
     }
 }

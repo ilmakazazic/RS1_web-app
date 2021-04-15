@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Ispit.Web.Helper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using RS1_Teretana.EF;
 using RS1_WebApp.EntityModels;
 
-namespace eUniverzitet.Web.Helper
+namespace RS1_WebApp.Web.Helper
 {
     public static class Autentifikacija
     {
@@ -65,8 +59,6 @@ namespace eUniverzitet.Web.Helper
                 .Where(x => x.Vrijednost == token)
                 .Select(s => s.KorisnickiNalog)
                 .SingleOrDefault();
-
         }
-
     }
 }

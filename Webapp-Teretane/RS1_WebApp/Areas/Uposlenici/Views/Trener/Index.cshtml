@@ -29,7 +29,6 @@
 </div>
 <br />
 
-
 <table class="table text-center" id="myTable">
     <thead>
         <tr>
@@ -41,15 +40,11 @@
             <th>Datum isteka licence</th>
             <th>Opcije</th>
             <th>Opcije</th>
-
-
-
         </tr>
     </thead>
     <tbody>
         @foreach (var x in Model.treneri)
         {
-
             <tr>
                 <td>@x.ImePrezime</td>
                 <td>@x.datumRodjenja</td>
@@ -99,17 +94,11 @@
                     <a asp-action="Uredi" asp-controller="Trener" asp-route-TrenerID="@x.TrenerId" ajax-poziv="da" ajax-rezultat="ajaxPoziv" class="btn btn-outline-danger btn-sm">Uredi</a>
                     <a asp-action="Obrisi" asp-controller="Trener" asp-route-TrenerID="@x.TrenerId" class="btn btn-outline-danger btn-sm">Obriši</a>
                 </td>
-
-
             </tr>
-
         }
     </tbody>
 </table>
-
 <br />
-
-
 
 <script>
     function myFunction() {

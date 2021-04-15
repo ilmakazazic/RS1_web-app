@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Ispit.Web.Helper
+namespace RS1_WebApp.Web.Helper
 {
     public static class MySessionExtensions
     {

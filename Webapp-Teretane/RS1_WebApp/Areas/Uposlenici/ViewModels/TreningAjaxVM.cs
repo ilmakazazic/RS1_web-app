@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RS1_WebApp.Areas.Uposlenici.ViewModels
 {
@@ -19,7 +17,6 @@ namespace RS1_WebApp.Areas.Uposlenici.ViewModels
             public int BrojTrenutnihRezrevacija { get; set; }
             public int BrojRezrevacija { get; set; }
             public int BrojZahtjeva { get; set; }
-
         }
     }
 }

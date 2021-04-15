@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using eUniverzitet.Web.Helper;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using MimeKit.Text;
 using RS1_Teretana.EF;
 using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
-using RS1_WebApp.ViewModels;
+using RS1_WebApp.Web.Helper;
 
 namespace RS1_WebApp.Controllers
 {
@@ -25,6 +20,7 @@ namespace RS1_WebApp.Controllers
         {
             db = context;
         }
+
         [HttpGet]
         public IActionResult SendEmail(int ClanID, int TeretanaID)
         {
@@ -36,7 +32,6 @@ namespace RS1_WebApp.Controllers
                 Naslov = "Napomena",
                 TeretanaID=TeretanaID
             };
-
             return PartialView(vm);
         }
 
@@ -49,21 +44,15 @@ namespace RS1_WebApp.Controllers
             {
                 try
                 {
-                    //instantiate a new MimeMessage
                     var message = new MimeMessage();
-                    //Setting the To e-mail address
                     message.To.Add(new MailboxAddress(vm.Ime, vm.Email));
-                    //Setting the From e-mail address
                     message.From.Add(new MailboxAddress(Korisnik.Ime + " " + Korisnik.Prezime, Korisnik.Email));
-                    //E-mail subject 
                     message.Subject = vm.Naslov;
-                    //E-mail message body
                     message.Body = new TextPart(TextFormat.Html)
                     {
                         Text = vm.Poruka + " Poruka je poslana od: " + vm.Ime + " E-mail: " + vm.Email
                     };
 
-                    //Configure the e-mail
                     using (var emailClient = new SmtpClient())
                     {
                         emailClient.Connect("smtp.gmail.com", 587, false);
@@ -79,10 +68,7 @@ namespace RS1_WebApp.Controllers
                 }
             }
             TempData["Poruka-email"] = "Uspjesno ste poslali mail korisniku " + vm.Ime;
-
             return Redirect("/Uposlenici/Clan?TeretanaID="+vm.TeretanaID);
         }
-
-
     }
 }

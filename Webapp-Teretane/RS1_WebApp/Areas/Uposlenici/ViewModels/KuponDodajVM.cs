@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RS1_WebApp.Areas.Uposlenici.ViewModels
 {
@@ -17,6 +14,5 @@ namespace RS1_WebApp.Areas.Uposlenici.ViewModels
         public int Brojac_Koristenja { get; set; }
         public bool Aktivan { get; set; }
         public int TeretanaID { get; set; }
-
     }
 }

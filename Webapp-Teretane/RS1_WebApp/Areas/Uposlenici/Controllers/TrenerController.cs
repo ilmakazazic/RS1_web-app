@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,6 @@ using RS1_Teretana.EF;
 using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
 using RS1_WebApp.EntityModels;
-using RS1_WebApp.ViewModels;
 
 namespace RS1_WebApp.Controllers
 {
@@ -17,7 +15,6 @@ namespace RS1_WebApp.Controllers
     public class TrenerController : Controller
     {
         private readonly MyContext db;
-
         public TrenerController(MyContext context)
         {
             db = context;
@@ -40,7 +37,6 @@ namespace RS1_WebApp.Controllers
 
             return View(vm);
         }
-
 
         [HttpGet]
         public IActionResult Dodaj()
@@ -106,8 +102,6 @@ namespace RS1_WebApp.Controllers
                 db.SaveChanges();
 
             }
-
-
             return Redirect("/Uposlenici/Trener");
         }
 
@@ -115,7 +109,6 @@ namespace RS1_WebApp.Controllers
         public IActionResult Uredi(int TrenerID)
         {
             Trener t = db.Trener.Find(TrenerID);
-
             TrenerDodajUrediVM vm = new TrenerDodajUrediVM()
             {
                 datumRodjenja = t.DatumRodjenja,
@@ -133,9 +126,6 @@ namespace RS1_WebApp.Controllers
         public IActionResult UrediLicencu(int TrenerLicencaID)
         {
             TrenerLicenca l = db.TrenerLicenca.Where(n => n.TrenerLicencaId == TrenerLicencaID).FirstOrDefault();
-
-
-
             TrenerDodajUrediVM vm = new TrenerDodajUrediVM()
             {
                 Licenca = db.Licenca.Select(x => new SelectListItem()
@@ -193,8 +183,6 @@ namespace RS1_WebApp.Controllers
             };
             db.TrenerLicenca.Add(novaLicencaTrenera);
             db.SaveChanges();
-
-
             return Redirect("/Uposlenici/Trener");
         }
 
@@ -233,7 +221,6 @@ namespace RS1_WebApp.Controllers
                     db.SaveChanges();
                     return Redirect("/Uposlenici/Trener");
                 }
-
             }
             TrenerLicenca novaLicencaTrenera = new TrenerLicenca()
             {
@@ -245,14 +232,8 @@ namespace RS1_WebApp.Controllers
             };
             db.TrenerLicenca.Add(novaLicencaTrenera);
             db.SaveChanges();
-
-
             return Redirect("/Uposlenici/Trener");
         }
-
-
-
-
 
         [HttpGet]
         public IActionResult DodajLicencu()
@@ -273,23 +254,15 @@ namespace RS1_WebApp.Controllers
             return Redirect("/Uposlenici/Trener");
         }
 
-
-
-
-
         public IActionResult ObrisiLicencu(int TrenerLicencaID)
         {
             TrenerLicenca l = db.TrenerLicenca.Find(TrenerLicencaID);
-
 
             if (l == null)
             {
                 TempData["poruka-error"] = "Trener ne postoji!";
                 return Redirect("/Uposlenici/Trener");
             }
-
-
-            
             db.TrenerLicenca.Remove(l);
             db.SaveChanges();
 
@@ -303,26 +276,16 @@ namespace RS1_WebApp.Controllers
             KorisnickiNalog k = db.KorisnickiNalog.Find(t.NalogID);
             var l = db.TrenerLicenca.Where(n => n.TrenerId == TrenerID).ToList();
 
-
-            if (t == null)
-            {
-                TempData["poruka-error"] = "Trener ne postoji!";
-                return Redirect("/Uposlenici/Trener");
-            }
-
             foreach (var x in l)
             {
                 if (x != null)
                 {
                     db.TrenerLicenca.Remove(x);
-                    //db.SaveChanges();
                 }
             }
             if (k != null)
             {
                 db.KorisnickiNalog.Remove(k);
-                //db.SaveChanges();
-
             }
 
             db.Trener.Remove(t);
@@ -330,6 +293,5 @@ namespace RS1_WebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿@model GradPrikazVM
 @{
     ViewData["Title"] = "Prikaz";
-
 }
 
 <h1>Gradovi</h1>
@@ -28,13 +27,8 @@
                     <a asp-controller="Grad" asp-action="Obrisi" asp-route-GradID="@x.GradId" class="btn btn-sm btn-outline-danger">Obriši</a>
 
                 </td>
-
             </tr>
-
         }
-
-
-
     </tbody>
 
 </table>

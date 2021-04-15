@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http;
 using RS1_Teretana.EF;
-using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
-using RS1_WebApp.ViewModels;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
-using Microsoft.EntityFrameworkCore;
 using RS1_Teretana.Web.Helper;
 using RS1_WebApp.EntityModels;
 
@@ -45,7 +34,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                     PopustKuponId = x.PopustKuponId
                 }).ToList()
             };
-                                
             return View(vm);
         }
 
@@ -60,10 +48,8 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                 KuponKod = Generator.KodPopusta(),
                 Broj_Koristenja=1
             };
-
             return PartialView(vm);
         }
-
 
         [HttpPost]
         public IActionResult Dodaj(KuponDodajVM vm)
@@ -78,8 +64,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                 Broj_Koristenja = vm.Broj_Koristenja,
                 Postotak = vm.Postotak,
                 TeretanaId = vm.TeretanaID
-
-
             };
 
             db.PopustKupon.Add(noviKupon);
@@ -88,15 +72,13 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
             return Redirect("/Uposlenici/Clanarina?TeretanaID="+vm.TeretanaID);
         }
+
         public IActionResult OtkaziKupon(int PopustKuponID, int TeretanaID)
         {
             PopustKupon p = db.PopustKupon.Find(PopustKuponID);
             p.Aktivan = false;
-
-
             db.PopustKupon.Update(p);
             db.SaveChanges();
-
             return Redirect("/Uposlenici/Clanarina?TeretanaID=" + TeretanaID);
         }
 
@@ -104,7 +86,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
         {
             int broj = model.Broj_Koristenja;
             return broj;
-
         }
 
         public string DodajKupon(KuponDodajVM vm)
@@ -124,6 +105,5 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
             return noviKupon.KuponKod;
         }
-
     }
 }

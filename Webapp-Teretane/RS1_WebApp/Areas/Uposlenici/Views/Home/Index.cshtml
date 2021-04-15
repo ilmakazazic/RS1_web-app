@@ -1,37 +1,28 @@
-﻿@using eUniverzitet.Web.Helper
-@using Ispit.Web.Helper
+﻿@using Ispit.Web.Helper
 @using Microsoft.AspNetCore.Http
 @using RS1_WebApp.EntityModels
+@using RS1_WebApp.Web.Helper
 @{
     ViewData["Title"] = "Index";
     KorisnickiNalog username = Context.GetLogiraniKorisnik();
 
 }
 
-    <div class="container body-content">
-        <h1 class="display-4">Pozdrav, @username.KorisnickoIme</h1>
-        <div class="btn btn-primary btn-lg btn-block" role="alert">
-            <a class="nav-link" asp-area="Uposlenici" asp-controller="Teretana" asp-action="Index">Teretane</a>
-        </div>
-        <div class="btn btn-primary btn-lg btn-block" role="alert">
-            <a class="nav-link" asp-area="Uposlenici" asp-controller="Trener" asp-action="Index">Treneri</a>
-        </div>
-
-        <div class="btn btn-primary btn-lg btn-block" role="alert">
-            <a class="nav-link" asp-area="Uposlenici" asp-controller="Grad" asp-action="Index">Gradovi</a>
-        </div>
-        <div class="btn btn-primary btn-lg btn-block" role="alert">
-            <a class="nav-link" asp-area="Uposlenici" asp-controller="Izvjestaj" asp-action="Index">Izvještaj</a>
-        </div>
-
-
-
-        @*<div class="btn btn-primary btn-lg btn-block" role="alert">
-            <a class="nav-link" asp-area="Clanovi" asp-controller="Uredi" asp-action="UrediProfilForm">Uredi profil</a>
-        </div>
-        <div class="btn btn-primary btn-lg btn-block" role="alert">
-            <a class="nav-link" asp-area="Clanovi" asp-controller="Obavijesti" asp-action="PrikaziObavijesti">Pregled obavijesti</a>
-        </div>*@
-
+<div class="container body-content">
+    <h1 class="display-4">Pozdrav, @username.KorisnickoIme</h1>
+    <br/> <br/>
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Uposlenici" asp-controller="Teretana" asp-action="Index">Teretane</a>
     </div>
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Uposlenici" asp-controller="Trener" asp-action="Index">Treneri</a>
+    </div>
+
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Uposlenici" asp-controller="Grad" asp-action="Index">Gradovi</a>
+    </div>
+    <div class="btn btn-primary btn-lg btn-block" role="alert">
+        <a class="nav-link" asp-area="Uposlenici" asp-controller="Izvjestaj" asp-action="Index">Izvještaj</a>
+    </div>
+</div>
 

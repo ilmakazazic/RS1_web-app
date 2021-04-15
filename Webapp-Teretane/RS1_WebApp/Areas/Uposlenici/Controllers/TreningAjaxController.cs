@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http;
 using RS1_Teretana.EF;
-using RS1_Teretana.EntityModels;
 using RS1_WebApp.Areas.Uposlenici.ViewModels;
-using RS1_WebApp.ViewModels;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.EntityFrameworkCore;
 using RS1_WebApp.EntityModels;
 
@@ -22,6 +14,7 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
     public class TreningAjaxController : Controller
     {
         private readonly MyContext db;
+
         public TreningAjaxController(MyContext context)
         {
             db = context;
@@ -34,29 +27,21 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
             {
                 TeretanaID = input.TeretanaId,
                 DatumString = input.DatumString.ToString(""),
-                termini = db.Treninzi.Where(v => v.DatumOdrzavanja == input.DatumString && v.TeretanaID==input.TeretanaId).
-                Include(b => b.Trener).Select(x => new TreningAjaxVM.Row()
-                {
-                    TreningID = x.TreninziID,
-                    PočetakTreninga = x.PocetakTreninga,
-                    KrajTreninga = x.KrajTreninga,
-                    Trener = x.Trener.Ime + " " + x.Trener.Prezime,
-                    BrojRezrevacija = x.BrojRezervacija,
-                    BrojTrenutnihRezrevacija = db.treninziDetalji.Where(c => c.TreninziID == x.TreninziID && c.Otkazan==false).Count(),
-                    BrojZahtjeva = db.TreningZahtjev.Where(c=>c.TreninziId==x.TreninziID && c.Odobren==false).Count()
+                termini = db.Treninzi
+                    .Where(v => v.DatumOdrzavanja == input.DatumString && v.TeretanaID == input.TeretanaId)
+                    .Include(b => b.Trener).Select(x => new TreningAjaxVM.Row()
+                    {
+                        TreningID = x.TreninziID,
+                        PočetakTreninga = x.PocetakTreninga,
+                        KrajTreninga = x.KrajTreninga,
+                        Trener = x.Trener.Ime + " " + x.Trener.Prezime,
+                        BrojRezrevacija = x.BrojRezervacija,
+                        BrojTrenutnihRezrevacija = db.treninziDetalji
+                            .Where(c => c.TreninziID == x.TreninziID && c.Otkazan == false).Count(),
+                        BrojZahtjeva = db.TreningZahtjev.Where(c => c.TreninziId == x.TreninziID && c.Odobren == false)
+                            .Count()
 
-                }).ToList()
-
-                //termini = db.Treninzi.Where(v => v.DatumOdrzavanja.ToString() == input.DatumString).
-                //Include(b=>b.Trener).Select(x => new TreningAjaxVM.Row()
-                //{
-                //    PočetakTreninga = x.PocetakTreninga,
-                //    KrajTreninga = x.KrajTreninga,
-                //    Trener = x.Trener.Ime + " " + x.Trener.Prezime
-
-
-
-                //}).ToList()
+                    }).ToList()
             };
             return PartialView(vm);
         }
@@ -66,27 +51,25 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
         {
             TreningAjaxDodajVM vm = new TreningAjaxDodajVM()
             {
-                Datum=DatumString,
-                //Datum = DatumString.Remove(DatumString.Length - 17),
+                Datum = DatumString,
                 TeretanaId = TeretanaID,
                 Teretana = db.Teretana.Where(c => c.TeretanaID == TeretanaID).Select(x => x.Naziv).FirstOrDefault(),
-                RadnoVrijeme = db.Teretana.Where(c => c.TeretanaID == TeretanaID).Select(x => x.PocetakRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault()
-                                    + "-" + db.Teretana.Where(c => c.TeretanaID == TeretanaID).Select(x => x.KrajRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault(),
+                RadnoVrijeme = db.Teretana.Where(c => c.TeretanaID == TeretanaID)
+                                   .Select(x => x.PocetakRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault()
+                               + "-" + db.Teretana.Where(c => c.TeretanaID == TeretanaID)
+                                   .Select(x => x.KrajRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault(),
                 Trener = db.Trener.Select(x => new SelectListItem()
                 {
                     Text = x.Ime + " " + x.Prezime,
                     Value = x.TrenerID.ToString()
                 }).ToList(),
-                //BrojDozvoljenihClanova= db.Teretana.Where(c => c.TeretanaID == TeretanaID).Select(x => x.BrojDozvoljenihClanova).FirstOrDefault()
             };
-
             return PartialView(vm);
         }
 
         [HttpPost]
         public IActionResult Dodaj(TreningAjaxDodajVM vm)
         {
-            //DateTime pretvoriDatum = Convert.ToDateTime(vm.Datum);
             Treninzi noviTrening = new Treninzi()
             {
                 TrenerID = vm.TrenerId,
@@ -94,19 +77,17 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
                 PocetakTreninga = vm.Pocetak,
                 KrajTreninga = vm.Kraj,
                 DatumOdrzavanja = vm.Datum,
-                BrojRezervacija=vm.BrojRezrevacija
-
-
+                BrojRezervacija = vm.BrojRezrevacija
             };
             db.Treninzi.Add(noviTrening);
             db.SaveChanges();
-            return Redirect("/Uposlenici/Trening?TeretanaID="+vm.TeretanaId);
+            return Redirect("/Uposlenici/Trening?TeretanaID=" + vm.TeretanaId);
         }
 
         [HttpGet]
         public IActionResult Uredi(int TreningID)
         {
-            Treninzi t = db.Treninzi.Where(c=>c.TreninziID==TreningID).Include(v=>v.Teretana).FirstOrDefault();
+            Treninzi t = db.Treninzi.Where(c => c.TreninziID == TreningID).Include(v => v.Teretana).FirstOrDefault();
             if (t == null)
             {
                 return Content("Teretana ne postoji!");
@@ -114,25 +95,25 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
             TreningAjaxDodajVM vm = new TreningAjaxDodajVM()
             {
-                TreningId=t.TreninziID,
+                TreningId = t.TreninziID,
                 Datum = t.DatumOdrzavanja,
                 Kraj = t.KrajTreninga,
                 Pocetak = t.PocetakTreninga,
                 Teretana = t.Teretana.Naziv,
                 TeretanaId = t.TeretanaID,
-                BrojRezrevacija=t.BrojRezervacija,
+                BrojRezrevacija = t.BrojRezervacija,
                 Trener = db.Trener.Select(x => new SelectListItem()
                 {
                     Text = x.Ime + " " + x.Prezime,
                     Value = x.TrenerID.ToString()
                 }).ToList(),
-                RadnoVrijeme = db.Teretana.Where(c => c.TeretanaID == t.TeretanaID).Select(x => x.PocetakRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault()
-                                    + "-" + db.Teretana.Where(c => c.TeretanaID == t.TeretanaID).Select(x => x.KrajRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault(),
+                RadnoVrijeme = db.Teretana.Where(c => c.TeretanaID == t.TeretanaID)
+                                   .Select(x => x.PocetakRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault()
+                               + "-" + db.Teretana.Where(c => c.TeretanaID == t.TeretanaID)
+                                   .Select(x => x.KrajRadnoVrijeme.ToString("hh\\:mm")).FirstOrDefault(),
 
 
             };
-
-
             return PartialView(vm);
         }
 
@@ -152,7 +133,7 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
             db.Treninzi.Update(t);
             db.SaveChanges();
-            return Redirect("/Uposlenici/Trening?TeretanaID="+vm.TeretanaId);
+            return Redirect("/Uposlenici/Trening?TeretanaID=" + vm.TeretanaId);
         }
 
         public IActionResult Obrisi(int TreningId)
@@ -162,11 +143,11 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
             {
                 return Content("Teretana ne postoji!");
             }
+
             db.Remove(t);
             db.SaveChanges();
             return Redirect("/Uposlenici/Trening?TeretanaID=" + t.TeretanaID);
         }
-
 
         public IActionResult Procesiranje(int TreningID)
         {
@@ -174,15 +155,17 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
             TreningAjaxProcesiranjeVM vm = new TreningAjaxProcesiranjeVM
             {
                 TreningID = TreningID,
-                Zahtjevi = db.TreningZahtjev.Where(c => c.TreninziId == TreningID && c.Odobren==false).Select(x => new TreningAjaxProcesiranjeVM.Row()
-                {
-                    Clan = x.Clan.Ime + " " + x.Clan.Prezime,
-                    Termin = x.Treninzi.PocetakTreninga.ToString("hh\\:mm") + "-" + x.Treninzi.KrajTreninga.ToString("hh\\:mm"),
-                    Teretana = x.Treninzi.Teretana.Naziv,
-                    Odobren = x.Odobren,
-                    ClanId = x.ClanId,
-                    TreningZahtjevId=x.TreningZahtjevId
-                }).ToList()
+                Zahtjevi = db.TreningZahtjev.Where(c => c.TreninziId == TreningID && c.Odobren == false).Select(x =>
+                    new TreningAjaxProcesiranjeVM.Row()
+                    {
+                        Clan = x.Clan.Ime + " " + x.Clan.Prezime,
+                        Termin = x.Treninzi.PocetakTreninga.ToString("hh\\:mm") + "-" +
+                                 x.Treninzi.KrajTreninga.ToString("hh\\:mm"),
+                        Teretana = x.Treninzi.Teretana.Naziv,
+                        Odobren = x.Odobren,
+                        ClanId = x.ClanId,
+                        TreningZahtjevId = x.TreningZahtjevId
+                    }).ToList()
             };
 
             return PartialView(vm);
@@ -190,7 +173,7 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
         public IActionResult ProcesiranjeSnimi(int TreningZahtjevID)
         {
-            TreningZahtjev t = db.TreningZahtjev.Include(b=>b.Treninzi).Include(b => b.Treninzi.Teretana)
+            TreningZahtjev t = db.TreningZahtjev.Include(b => b.Treninzi).Include(b => b.Treninzi.Teretana)
                 .Where(c => c.TreningZahtjevId == TreningZahtjevID).FirstOrDefault();
 
             t.Odobren = true;
@@ -204,12 +187,10 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
 
             };
             db.treninziDetalji.Add(dodajClana);
-
             Treninzi rezervacije = db.Treninzi.Where(v => v.TreninziID == t.TreninziId).FirstOrDefault();
             rezervacije.BrojRezervacija += 1;
             db.Treninzi.Update(rezervacije);
             db.SaveChanges();
-
             return Redirect("/Uposlenici/Trening?TeretanaID=" + t.Treninzi.Teretana.TeretanaID);
         }
 
@@ -217,7 +198,7 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
         {
             var zahtjevi = db.TreningZahtjev.Where(c => c.TreninziId == TreningID && c.Odobren == false).ToList();
 
-            foreach(var x in zahtjevi)
+            foreach (var x in zahtjevi)
             {
                 x.Odobren = true;
                 TreninziDetalji dodajClana = new TreninziDetalji()
@@ -236,8 +217,6 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
             rezervacije.BrojRezervacija += zahtjevi.Count();
             db.Treninzi.Update(rezervacije);
             db.SaveChanges();
-
-
             return Redirect("/Uposlenici/Trening?TeretanaID=" + TeretanaID);
         }
 
@@ -245,13 +224,9 @@ namespace RS1_WebApp.Areas.Uposlenici.Controllers
         {
             MyContext db = new MyContext();
 
-            List<TreninziDetalji> treninzi = db.treninziDetalji.Where(v=>v.TreninziID==4).ToList();
+            List<TreninziDetalji> treninzi = db.treninziDetalji.Where(v => v.TreninziID == 4).ToList();
             int broj = treninzi.Count();
             return broj;
         }
-
-
-
-
-        }
     }
+}
